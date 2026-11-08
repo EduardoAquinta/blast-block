@@ -1,16 +1,5 @@
 extends GdUnitTestSuite
-## Tests for res://src/core/board.gd
-##
-## Every function whose name starts with `test_` is run by gdUnit4.
-## Name each test for the behaviour it checks, not the method it calls.
-
-
-# Optional hooks (delete any you don't need):
-#   before()       runs once before all tests in this file
-#   before_test()  runs before EACH test (fresh state for every test)
-#   after_test()   runs after EACH test
-#   after()        runs once after all tests
-
+# Name each test for the behaviour it checks, not the method it calls.
 
 # Test template: copy it, rename it, and fill in the three sections.
 #
@@ -26,3 +15,10 @@ func test_new_board_is_eight_by_eight() -> void:
 	var board: Board = Board.new()
 	var size_of_board: Vector2i = board.size
 	assert_that(size_of_board).is_equal(Vector2i(8,8))
+
+func test_on_new_board_that_square_0_0_is_empty() -> void:
+	var board: Board = Board.new()
+	var cell_is_empty: bool = board.is_cell_empty(Vector2i(0, 0))
+	assert_bool(cell_is_empty).is_true()
+
+
