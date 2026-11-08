@@ -5,6 +5,10 @@ on:
   push:
     branches: ["main", "master"]
 
+permissions:
+  contents: read   # checkout the repo
+  checks: write    # let the action publish the test report as a check run
+
 jobs:
   test:
     name: Run Godot Unit Tests
