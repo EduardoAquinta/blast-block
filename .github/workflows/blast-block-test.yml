@@ -1,0 +1,23 @@
+name: "Test Game"
+# Test Blast Block game using Godot engine and gdUnit4
+
+on:
+  push:
+    branches: ["main", "master"]
+
+jobs:
+  test:
+    name: Run Godot Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Run gdUnit4 tests
+        uses: godot-gdunit-labs/gdUnit4-action@v1.4.2
+        with:
+          godot-version: "4.7.2"         # match local `godot --version`
+          version: "v6.2.3"              # match the addon committed in addons/gdUnit4
+          paths: "res://test"
+          arguments: "--ignoreHeadlessMode"  # gdUnit4 v6 exits with 103 in headless mode without it
