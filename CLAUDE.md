@@ -56,19 +56,5 @@ A Block Blast-style puzzle game for Android and PC, built in Godot 4 with GDScri
 - **No ads, ever.** That includes interstitial, rewarded and banner ads, and any ad SDK. Not having ads is the reason this game exists. The brief's "Monetisation: none" section records which of the original's features were driven by ads.
 - Out of the core: game feel (ghost preview rendering, drag offset, animations, haptics, sound), high-score persistence (I/O), and modes.
 
-## Backlog (first slice)
-1. A new board is 8×8 and empty.
-2. A piece can't be placed out of bounds.
-3. A piece can't overlap filled cells.
-4. Placing a piece fills its cells.
-5. A full row is cleared; so is a full column; rows and columns full at the same time clear together.
-6. Scoring: points per cell placed, plus line-clear and combo bonuses.
-7. The game is over when none of the pieces left in the tray fits anywhere.
-
-## Backlog (later)
-- The tray: 3 pieces are offered, and a new 3 are dealt once all are placed.
-- The piece set: single blocks, lines of 2–5, 2×2 and 3×3 squares, L, T, S/Z shapes.
-- Scoring extras: a multi-line clear bonus, a combo streak that resets on a placement that clears nothing, and a full-board-clear bonus.
-- A preview query: which lines a placement *would* clear, without changing the board (core support for the ghost preview).
-- Fair generation: a seeded `PieceBag` that leans towards sets you can place.
-- High score: tracked in the core, saved by the presentation layer.
+## Backlog
+- The backlog, with status and open questions, is in `docs/backlog.md`. It's the only copy, so update it there as behaviours are done.
