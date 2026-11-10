@@ -17,9 +17,12 @@ func is_cell_empty(cell: Vector2i) -> bool:
 	return not _filled_cells.has(cell)
 
 func can_place(shape: Array[Vector2i], position: Vector2i) -> bool:
-	var result: bool = true
 	for offset in shape:
-		var cell: Vector2i = offset + position
-		if not (cell.x > 0 and cell.x < 8) or not(cell.y > 0 and cell.y < 8):
-			result = false
-	return result
+		if not _is_on_board(offset + position):
+			return false
+	return true
+
+func _is_on_board(cell: Vector2i) -> bool:
+	var x_on_board: bool = cell.x > 0 and cell.x < size.x
+	var y_on_board: bool = cell.y > 0 and cell.y < size.y
+	return x_on_board and y_on_board
