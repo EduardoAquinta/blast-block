@@ -16,11 +16,23 @@ func test_filled_cell_is_not_empty() -> void:
 	var cell_is_empty: bool = board.is_cell_empty(Vector2i(0, 0))
 	assert_bool(cell_is_empty).is_false()
 
-func test_2x1_shape_fills_two_adjacent_cells() -> void:
+@warning_ignore("unused_parameter")
+func test_a_shape_fills_the_correct_board_cells(
+	position: Vector2i,
+	expected_first_cell: Vector2i,
+	expected_second_cell: Vector2i,
+	test_parameters := [
+		# position         expected first     expected second
+		[Vector2i(2, 5), Vector2i(2, 5), Vector2i(2, 6)],  # x and y differ: catches a swapped anchor
+		[Vector2i(5, 1), Vector2i(5, 1), Vector2i(5, 2)],  # x and y differ the other way round
+		[Vector2i(6, 6), Vector2i(6, 6), Vector2i(6, 7)],  # second cell lands on the last row
+	]
+) -> void:
 	var board: Board = Board.new()
-	board.place_shape(Vector2i(0, 0), 2, Vector2i(0, 1))
-	var first_cell_is_empty: bool = board.is_cell_empty(Vector2i(0,0))
-	var second_cell_is_empty: bool = board.is_cell_empty(Vector2i(0,1))
+	var two_cell_shape: Array[Vector2i] = [Vector2i(0, 0), Vector2i(0, 1)]
+	board.place_shape(two_cell_shape, position)
+	var first_cell_is_empty: bool = board.is_cell_empty(expected_first_cell)
+	var second_cell_is_empty: bool = board.is_cell_empty(expected_second_cell)
 	assert_bool(first_cell_is_empty).is_false()
 	assert_bool(second_cell_is_empty).is_false()
 
