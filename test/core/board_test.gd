@@ -50,3 +50,10 @@ func test_a_shape_can_be_placed_on_the_board() -> void:
 	var can_place_piece: bool = board.can_place(single_cell_shape, position)
 	assert_bool(can_place_piece).is_true()
 
+func test_a_shape_on_and_off_the_board_is_off_the_board() -> void:
+	var board: Board = Board.new()
+	var two_cell_shape: Array[Vector2i] = [Vector2i(0, 0), Vector2i(1,0)]
+	var position: Vector2i = Vector2i(7, 7)
+	var can_place_piece: bool = board.can_place(two_cell_shape, position)
+	assert_bool(can_place_piece).is_false()
+
