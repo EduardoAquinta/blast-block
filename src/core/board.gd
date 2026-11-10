@@ -17,4 +17,9 @@ func is_cell_empty(cell: Vector2i) -> bool:
 	return not _filled_cells.has(cell)
 
 func can_place(shape: Array[Vector2i], position: Vector2i) -> bool:
-	return false
+	var result: bool = false
+	for offset in shape:
+		var cell: Vector2i = offset + position
+		if (cell.x > 0 and cell.x < 8) and (cell.y > 0 and cell.y < 8):
+			result = true
+	return result
