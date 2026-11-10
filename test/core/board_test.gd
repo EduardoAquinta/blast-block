@@ -36,4 +36,10 @@ func test_a_shape_fills_the_correct_board_cells(
 	assert_bool(first_cell_is_empty).is_false()
 	assert_bool(second_cell_is_empty).is_false()
 
+func test_a_shape_cannot_be_placed_off_the_board() -> void:
+	var board: Board = Board.new()
+	var single_cell_shape: Array[Vector2i] = [Vector2i(0, 0)]
+	var position: Vector2i = Vector2i(8, 8)
+	var can_place_piece: bool = board.can_place(single_cell_shape, position)
+	assert_bool(can_place_piece).is_false()
 

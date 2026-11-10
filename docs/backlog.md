@@ -6,12 +6,15 @@ Status: `[ ]` not started · `[~]` in progress · `[x]` done
 
 ## First slice: playable core rules
 
-- [~] **1. A new board is 8×8 and empty.**
+- [x] **1. A new board is 8×8 and empty.**
   - Done: the board's size is 8×8. Cell `(0, 0)` is empty on a new board.
+  - Every cell is empty by construction: a new board has no filled cells, so a test of all 64 would pass straight away and drive nothing.
 - [ ] **2. A piece can't be placed out of bounds.**
 - [ ] **3. A piece can't overlap filled cells.**
-- [~] **4. Placing a piece fills its cells.**
-  - Done: a single cell can be filled, and a filled cell is no longer empty. No `Piece` exists yet.
+- [x] **4. Placing a piece fills its cells.**
+  - Done: a single cell can be filled, and a filled cell is no longer empty.
+  - Done: `place_shape(shape, position)` fills every offset + position. It's tested at several positions with a vertical domino.
+  - A shape is a plain `Array[Vector2i]` of offsets for now. A `Piece` class can emerge when a test needs more than a list.
 - [ ] **5. A full row is cleared; so is a full column; rows and columns full at the same time clear together.**
 - [ ] **6. Scoring: points per cell placed, plus line-clear and combo bonuses.**
 - [ ] **7. The game is over when none of the pieces left in the tray fits anywhere.**
@@ -30,6 +33,14 @@ Status: `[ ]` not started · `[~]` in progress · `[x]` done
 - [ ] First slice done
 - [ ] Minimal UI: draw the grid and tray, drag and drop pieces
 - [ ] Builds for PC (first round of feedback), then Android
+
+## Decisions made
+
+- **Coordinates:** `Vector2i(x, y)`, zero-based. `x` runs right and `y` runs down (Godot's convention). `(0, 0)` is the top-left cell.
+- **Shapes** are lists of offsets from the shape's own top-left `(0, 0)`. Placing a shape fills offset + position for each offset.
+- **Board storage:** a private list of filled cells (`_filled_cells`). Only filled-or-empty is stored, not which shape a cell came from.
+- **`Board` changes in place** (`fill_cell`, `place_shape`) for now. See the immutability question below.
+- **Test style:** setup stays inline in each test. Parameterised tests are used for "one behaviour, several examples".
 
 ## Open questions
 
