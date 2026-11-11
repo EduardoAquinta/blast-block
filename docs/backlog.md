@@ -9,12 +9,13 @@ Status: `[ ]` not started · `[~]` in progress · `[x]` done
 - [x] **1. A new board is 8×8 and empty.**
   - Done: the board's size is 8×8. Cell `(0, 0)` is empty on a new board.
   - Every cell is empty by construction: a new board has no filled cells, so a test of all 64 would pass straight away and drive nothing.
-- [~] **2. A piece can't be placed out of bounds.**
+- [x] **2. A piece can't be placed out of bounds.**
   - Done: `can_place(shape, position)` answers yes or no without changing the board.
   - Done: `(7, 7)` can be placed and `(8, 8)` can't, which pins the bottom-right edge.
+  - Done: a shape at `(0, 0)` can be placed, which pins the top-left edge. That test exposed and fixed a `> 0` bug.
   - Done: a shape that's only partly off the board can't be placed. Every cell is checked.
-  - **Known bug, to expose with a test next:** the top and left edges. `_is_on_board` uses `> 0`, so row 0 and column 0 count as off the board.
-  - Not tested yet: negative positions.
+  - Done (guard test): an L shape with a negative anchor, partly off the left edge, can't be placed. Negative positions are realistic, because the UI turns pixel positions into grid cells, and those can fall outside the board.
+  - Still open: what `place_shape` does if it's called when `can_place` says no. See Open questions.
 - [ ] **3. A piece can't overlap filled cells.**
 - [x] **4. Placing a piece fills its cells.**
   - Done: a single cell can be filled, and a filled cell is no longer empty.
@@ -37,6 +38,7 @@ Status: `[ ]` not started · `[~]` in progress · `[x]` done
 
 - [ ] First slice done
 - [ ] Minimal UI: draw the grid and tray, drag and drop pieces
+  - When converting pixel positions to grid cells, round **down** (`floori`), not towards zero. Otherwise a finger just left of or above the board snaps onto column or row 0.
 - [ ] Builds for PC (first round of feedback), then Android
 
 ## Decisions made
