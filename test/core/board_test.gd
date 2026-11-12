@@ -71,3 +71,19 @@ func test_a_shape_with_a_negative_position_cannot_be_placed_on_the_board() -> vo
 	var can_place_l_shape: bool = board.can_place(l_shape, position)
 	assert_bool(can_place_l_shape).is_false()
 
+func test_place_shape_returns_false_if_a_shape_with_a_negative_position_is_placed() -> void:
+	var board: Board = Board.new()
+	var single_cell_shape: Array[Vector2i] = [Vector2i(0, 0)]
+	var position: Vector2i = Vector2i(-1, -1)
+	var cannot_place_shape: bool = board.place_shape(single_cell_shape, position)
+	assert_bool(cannot_place_shape).is_false()
+
+func test_place_shape_returns_true_if_a_shape_with_a_accepted_position_is_placed() -> void:
+	var board: Board = Board.new()
+	var single_cell_shape: Array[Vector2i] = [Vector2i(0, 0)]
+	var position: Vector2i = Vector2i(0, 0)
+	var cannot_place_shape: bool = board.place_shape(single_cell_shape, position)
+	assert_bool(cannot_place_shape).is_true()
+
+
+
