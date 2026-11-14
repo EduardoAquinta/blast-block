@@ -12,7 +12,9 @@ func test_on_new_board_that_cell_0_0_is_empty() -> void:
 
 func test_filled_cell_is_not_empty() -> void:
 	var board: Board = Board.new()
-	board.fill_cell(Vector2i(0, 0))
+	var single_cell_shape: Array[Vector2i] = [Vector2i(0,0)]
+	var position: Vector2i = Vector2i(0, 0)
+	board.place_shape(single_cell_shape, position)
 	var cell_is_empty: bool = board.is_cell_empty(Vector2i(0, 0))
 	assert_bool(cell_is_empty).is_false()
 
@@ -93,6 +95,13 @@ func test_refused_placement_leaves_the_board_unchanged() -> void:
 	var cell_is_empty: bool = board.is_cell_empty(position)
 	assert_bool(cell_is_empty).is_true()
 
+func test_() -> void:
+	var board: Board = Board.new()
+	var l_shape: Array[Vector2i] = [Vector2i(0, 0), Vector2i(0, 1), Vector2i(0, 2), Vector2i(1, 2)]
+	var position: Vector2i = Vector2i(6, 6)
+	board.place_shape(l_shape, position)
+	var cell_is_empty: bool = board.is_cell_empty(position)
+	assert_bool(cell_is_empty).is_true()
 
 
 
