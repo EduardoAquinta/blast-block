@@ -75,15 +75,24 @@ func test_place_shape_returns_false_if_a_shape_with_a_negative_position_is_place
 	var board: Board = Board.new()
 	var single_cell_shape: Array[Vector2i] = [Vector2i(0, 0)]
 	var position: Vector2i = Vector2i(-1, -1)
-	var cannot_place_shape: bool = board.place_shape(single_cell_shape, position)
-	assert_bool(cannot_place_shape).is_false()
+	var can_place_shape: bool = board.place_shape(single_cell_shape, position)
+	assert_bool(can_place_shape).is_false()
 
 func test_place_shape_returns_true_if_a_shape_with_a_accepted_position_is_placed() -> void:
 	var board: Board = Board.new()
 	var single_cell_shape: Array[Vector2i] = [Vector2i(0, 0)]
 	var position: Vector2i = Vector2i(0, 0)
-	var cannot_place_shape: bool = board.place_shape(single_cell_shape, position)
-	assert_bool(cannot_place_shape).is_true()
+	var can_place_shape: bool = board.place_shape(single_cell_shape, position)
+	assert_bool(can_place_shape).is_true()
+
+func test_refused_placement_leaves_the_board_unchanged() -> void:
+	var board: Board = Board.new()
+	var l_shape: Array[Vector2i] = [Vector2i(0, 0), Vector2i(0, 1), Vector2i(0, 2), Vector2i(1, 2)]
+	var position: Vector2i = Vector2i(6, 6)
+	board.place_shape(l_shape, position)
+	var cell_is_empty: bool = board.is_cell_empty(position)
+	assert_bool(cell_is_empty).is_true()
+
 
 
 
