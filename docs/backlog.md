@@ -15,7 +15,7 @@ Status: `[ ]` not started · `[~]` in progress · `[x]` done
   - Done: a shape at `(0, 0)` can be placed, which pins the top-left edge. That test exposed and fixed a `> 0` bug.
   - Done: a shape that's only partly off the board can't be placed. Every cell is checked.
   - Done (guard test): an L shape with a negative anchor, partly off the left edge, can't be placed. Negative positions are realistic, because the UI turns pixel positions into grid cells, and those can fall outside the board.
-  - Still open: what `place_shape` does if it's called when `can_place` says no. See Open questions.
+  - Done: `place_shape` refuses an invalid placement. It returns `false` and leaves the board untouched (guarded by an L shape partly off the board). A valid placement returns `true`.
 - [ ] **3. A piece can't overlap filled cells.**
 - [x] **4. Placing a piece fills its cells.**
   - Done: a single cell can be filled, and a filled cell is no longer empty.
@@ -48,12 +48,12 @@ Status: `[ ]` not started · `[~]` in progress · `[x]` done
 - **Board storage:** a private list of filled cells (`_filled_cells`). Only filled-or-empty is stored, not which shape a cell came from.
 - **`Board` changes in place** (`fill_cell`, `place_shape`) for now. See the immutability question below.
 - **Asking versus doing:** `can_place` is a separate yes/no question that never changes the board. It's what the game asks while dragging, before anything is placed.
+- **The board protects its own rules (secure by design):** `place_shape` checks `can_place` first and returns `true` or `false`. On `false`, nothing changes, and the UI shakes the piece and slides it back to the tray (presentation only). `_fill_cell` is private, so `place_shape` is the only way to fill cells, and tests go through it too.
 - **Board size** comes from `size`, never a hard-coded `8` in the rules.
 - **Test style:** setup stays inline in each test. Parameterised tests are used for "one behaviour, several examples".
 
 ## Open questions
 
 - Without ads, keep a revive or a reshuffle, or should game over just end the game? (See the design brief's "Monetisation: none" section.)
-- Should `place_shape` refuse to place when `can_place` says no (and how does the caller find out), or is the caller always trusted to ask first? Does `fill_cell` need to stay public?
 - Should `Board` stay mutable, or return new boards (immutable core)?
 - The game's own name and visual identity.
