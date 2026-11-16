@@ -95,13 +95,13 @@ func test_refused_placement_leaves_the_board_unchanged() -> void:
 	var cell_is_empty: bool = board.is_cell_empty(position)
 	assert_bool(cell_is_empty).is_true()
 
-func test_() -> void:
+func test_a_shape_cannot_overlap_filled_cells() -> void:
 	var board: Board = Board.new()
-	var l_shape: Array[Vector2i] = [Vector2i(0, 0), Vector2i(0, 1), Vector2i(0, 2), Vector2i(1, 2)]
-	var position: Vector2i = Vector2i(6, 6)
-	board.place_shape(l_shape, position)
-	var cell_is_empty: bool = board.is_cell_empty(position)
-	assert_bool(cell_is_empty).is_true()
+	var single_cell_shape: Array[Vector2i] = [Vector2i(0, 0)]
+	var position: Vector2i = Vector2i(0,0)
+	board.place_shape(single_cell_shape, position)
+	var place_second_shape: bool = board.place_shape(single_cell_shape, position)
+	assert_bool(place_second_shape).is_false()
 
 
 
