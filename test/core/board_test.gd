@@ -80,7 +80,7 @@ func test_place_shape_returns_false_if_a_shape_with_a_negative_position_is_place
 	var can_place_shape: bool = board.place_shape(single_cell_shape, position)
 	assert_bool(can_place_shape).is_false()
 
-func test_place_shape_returns_true_if_a_shape_with_a_accepted_position_is_placed() -> void:
+func test_place_shape_returns_true_if_a_shape_with_an_accepted_position_is_placed() -> void:
 	var board: Board = Board.new()
 	var single_cell_shape: Array[Vector2i] = [Vector2i(0, 0)]
 	var position: Vector2i = Vector2i(0, 0)
@@ -98,10 +98,18 @@ func test_refused_placement_leaves_the_board_unchanged() -> void:
 func test_a_shape_cannot_overlap_filled_cells() -> void:
 	var board: Board = Board.new()
 	var single_cell_shape: Array[Vector2i] = [Vector2i(0, 0)]
-	var position: Vector2i = Vector2i(0,0)
+	var position: Vector2i = Vector2i(0, 0)
 	board.place_shape(single_cell_shape, position)
 	var place_second_shape: bool = board.place_shape(single_cell_shape, position)
 	assert_bool(place_second_shape).is_false()
+
+func test_can_place_will_refuse_an_overlap() -> void:
+	var board: Board = Board.new()
+	var single_cell_shape: Array[Vector2i] = [Vector2i(0, 0)]
+	var position: Vector2i = Vector2i(0, 0)
+	board.place_shape(single_cell_shape, position)
+	var can_I_place_shape: bool = board.can_place(single_cell_shape, position)
+	assert_bool(can_I_place_shape).is_false()
 
 
 

@@ -21,7 +21,7 @@ func is_cell_empty(cell: Vector2i) -> bool:
 
 func can_place(shape: Array[Vector2i], position: Vector2i) -> bool:
 	for offset in shape:
-		var cell = offset + position
+		var cell: Vector2i = offset + position
 		if not _is_on_board(cell):
 			return false
 		if not is_cell_empty(cell):

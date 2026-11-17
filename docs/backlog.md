@@ -16,7 +16,9 @@ Status: `[ ]` not started · `[~]` in progress · `[x]` done
   - Done: a shape that's only partly off the board can't be placed. Every cell is checked.
   - Done (guard test): an L shape with a negative anchor, partly off the left edge, can't be placed. Negative positions are realistic, because the UI turns pixel positions into grid cells, and those can fall outside the board.
   - Done: `place_shape` refuses an invalid placement. It returns `false` and leaves the board untouched (guarded by an L shape partly off the board). A valid placement returns `true`.
-- [ ] **3. A piece can't overlap filled cells.**
+- [~] **3. A piece can't overlap filled cells.**
+  - Done: `place_shape` refuses a shape whose cell is already filled. `can_place` now has two reasons to say no (off the board, or the cell is filled), and the guard in `place_shape` picks up the second one automatically.
+  - To do: `can_place` itself refuses an overlap. The ghost preview will ask it directly, without placing anything.
 - [x] **4. Placing a piece fills its cells.**
   - Done: a single cell can be filled, and a filled cell is no longer empty.
   - Done: `place_shape(shape, position)` fills every offset + position. It's tested at several positions with a vertical domino.
