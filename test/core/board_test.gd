@@ -111,5 +111,16 @@ func test_can_place_will_refuse_an_overlap() -> void:
 	var can_I_place_shape: bool = board.can_place(single_cell_shape, position)
 	assert_bool(can_I_place_shape).is_false()
 
+func test_a_complete_row_is_cleared_from_the_board() -> void:
+	var board: Board = Board.new()
+	var horizontal_shape: Array[Vector2i] = [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)]
+	var position_one: Vector2i = Vector2i(0, 0)
+	var position_two: Vector2i = Vector2i(4, 0)
+	board.place_shape(horizontal_shape, position_one)
+	board.place_shape(horizontal_shape, position_two)
+	var cell_0_0_is_empty: bool = board.is_cell_empty(Vector2i(0, 0))
+	var cell_4_0_is_empty: bool = board.is_cell_empty(Vector2i(4, 0))
+	assert_bool(cell_0_0_is_empty).is_true()
+	assert_bool(cell_4_0_is_empty).is_true()
 
 

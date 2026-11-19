@@ -11,6 +11,8 @@ func place_shape(shape: Array[Vector2i], position: Vector2i) -> bool:
 		return false
 	for offset in shape:
 		_fill_cell(offset + position)
+	if _is_row_full(0):
+		_clear_row(0)
 	return true
 
 func _fill_cell(cell: Vector2i) -> void:
@@ -18,6 +20,16 @@ func _fill_cell(cell: Vector2i) -> void:
 
 func is_cell_empty(cell: Vector2i) -> bool:
 	return not _filled_cells.has(cell)
+
+func _is_row_full(y: int) -> bool:
+	for x in range(size.x):
+		if is_cell_empty(Vector2i(x, y)):
+			return false
+	return true
+
+func _clear_row(y: int) -> void:
+	for x in range(size.x):
+		_filled_cells.erase(Vector2i(x, y))
 
 func can_place(shape: Array[Vector2i], position: Vector2i) -> bool:
 	for offset in shape:
